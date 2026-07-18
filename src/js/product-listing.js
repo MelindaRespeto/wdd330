@@ -28,6 +28,8 @@ async function getProducts(url) {
 }
 
 function productCardTemplate(product) {
+  const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
+
   return `
     <li class="product-card">
       <a href="../product_pages/${DETAIL_PAGES[product.Id] || "#"}">
@@ -35,9 +37,17 @@ function productCardTemplate(product) {
           src="${product.Image}"
           alt="Image of ${product.Name}"
         />
+        ${isDiscounted ? `<span class="product-card__discount-badge">Sale</span>` : ""}
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.NameWithoutBrand}</h2>
-        <p class="product-card__price">$${product.FinalPrice}</p>
+        <p class="product-card__price">
+          ${
+            isDiscounted
+              ? `<span class="product-card__price--original">$${product.SuggestedRetailPrice}</span>
+                 <span class="product-card__price--final">$${product.FinalPrice}</span>`
+              : `$${product.FinalPrice}`
+          }
+        </p>
       </a>
       <button
         class="card__button"
