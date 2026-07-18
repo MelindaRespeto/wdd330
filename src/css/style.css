@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -260,4 +260,31 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+.product-card {
+  position: relative;
+}
+
+.product-card__discount-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #d0021b;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.product-card__price--original {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 6px;
+}
+
+.product-card__price--final {
+  color: #d0021b;
+  font-weight: bold;
 }
