@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css              */document.querySelector("#search-form").addEventListener("submit",t=>{t.preventDefault();const e=document.querySelector("#search-input").value.trim();e&&(window.location.href=`/product_listing/index.html?search=${encodeURIComponent(e)}`)});
