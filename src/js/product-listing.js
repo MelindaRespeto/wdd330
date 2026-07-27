@@ -41,12 +41,11 @@ function productCardTemplate(product) {
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.NameWithoutBrand}</h2>
         <p class="product-card__price">
-          ${
-            isDiscounted
-              ? `<span class="product-card__price--original">$${product.SuggestedRetailPrice}</span>
+          ${isDiscounted
+      ? `<span class="product-card__price--original">$${product.SuggestedRetailPrice}</span>
                  <span class="product-card__price--final">$${product.FinalPrice}</span>`
-              : `$${product.FinalPrice}`
-          }
+      : `$${product.FinalPrice}`
+    }
         </p>
       </a>
       <button
@@ -91,8 +90,22 @@ async function init() {
 
   try {
     const products = await getProducts(DATA_URL);
-    setListTitle("Tents", titleElement);
-    renderProductList(products, listElement);
+
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("search");
+
+    let filteredProducts = products;
+    let listTitle = "Tents";
+
+    if (searchTerm) {
+      filteredProducts = products.filter((product) =>
+        product.Name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      listTitle = `Search results for "${searchTerm}"`;
+    }
+
+    setListTitle(listTitle, titleElement);
+    renderProductList(filteredProducts, listElement);
     listElement.addEventListener("click", addToCart);
   } catch (error) {
     console.error(error);
